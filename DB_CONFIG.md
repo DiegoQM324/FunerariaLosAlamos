@@ -22,134 +22,145 @@ A continuación se presentan algunas de las tablas principales con sus estructur
 
 ### USUARIO
 ```sql
-CREATE TABLE USUARIO (
-    id_usuario       SERIAL PRIMARY KEY,
-    nombre           VARCHAR(100)        NOT NULL,
-    apellido         VARCHAR(100)        NOT NULL,
-    username         VARCHAR(50) UNIQUE  NOT NULL,
-    email            VARCHAR(255) UNIQUE NOT NULL,
-    contrasena       VARCHAR(255)        NOT NULL,
-    fecha_nacimiento DATE                NOT NULL,
-    pais             VARCHAR(100)        NOT NULL,
-    img_perfil       VARCHAR(255),
-    is_active        BOOLEAN   DEFAULT TRUE,
-    last_login       TIMESTAMP,
-    created_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at       TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE usuario (
+    id_usuario INTEGER NOT NULL,
+    nombre     VARCHAR2(20 BYTE) NOT NULL,
+    apellidos  VARCHAR2(30 BYTE) NOT NULL,
+    rol        VARCHAR2(20 BYTE) NOT NULL,
+    celular    INTEGER NOT NULL,
+    correo     VARCHAR2(40 BYTE) NOT NULL,
+    dni        INTEGER NOT NULL,
+    contraseña VARCHAR2(30 BYTE) NOT NULL
 );
+
+ALTER TABLE usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (id_usuario);
 ```
 
-### CANCION
+### DIFUNTO
 ```sql
-CREATE TABLE CANCION (
-    id_cancion            SERIAL PRIMARY KEY,
-    id_artista            INTEGER,
-    id_album              INTEGER,
-    titulo                VARCHAR(255)        NOT NULL,
-    portada               VARCHAR(255),
-    duracion              INTERVAL            NOT NULL,
-    idioma                VARCHAR(50)         NOT NULL,
-    letra                 TEXT,
-    fecha_lanzamiento     DATE                NOT NULL,
-    ruta_archivo          VARCHAR(255) UNIQUE NOT NULL,
-    calificacion_promedio DECIMAL(3, 2),
-    numero_reproducciones INTEGER DEFAULT 0,
-    CONSTRAINT fk_cancion_artista FOREIGN KEY (id_artista) REFERENCES ARTISTA (id_artista) ON DELETE CASCADE,
-    CONSTRAINT fk_cancion_album FOREIGN KEY (id_album) REFERENCES ALBUM (id_album) ON DELETE CASCADE
+CREATE TABLE difunto (
+    id_difunto          INTEGER NOT NULL,
+    nombredif           VARCHAR2(20 BYTE) NOT NULL,
+    apellidosdif        VARCHAR2(30 BYTE) NOT NULL,
+    fec_nacimiento      DATE NOT NULL,
+    fec_fallecimiento   DATE NOT NULL,
+    lugar_fallecimiento VARCHAR2(30 BYTE) NOT NULL
 );
+
+ALTER TABLE difunto ADD CONSTRAINT difunto_pk PRIMARY KEY (id_difunto);
 ```
 
-### ARTISTA
+### SERVICIO
 ```sql
-CREATE TABLE ARTISTA
-(
-   id_artista     SERIAL PRIMARY KEY,
-   nombre         VARCHAR(255) NOT NULL,
-   biografia      TEXT,
-   pais           VARCHAR(100) NOT NULL,
-   redes_sociales JSON,
-   is_verified    BOOLEAN DEFAULT FALSE
+CREATE TABLE servicio (
+    id_servicio INTEGER NOT NULL,
+    nombreser   VARCHAR2(30 BYTE) NOT NULL,
+    descripción VARCHAR2(50 BYTE) NOT NULL,
+    id_plan     INTEGER NOT NULL,
+    id_asesor   INTEGER NOT NULL
 );
+
+ALTER TABLE servicio ADD CONSTRAINT servicio_pk PRIMARY KEY (id_servicio);
 ```
 
-### ALBUM
+### PLAN
 ```sql
-CREATE TABLE ALBUM
-(
-   id_album          SERIAL PRIMARY KEY,
-   id_artista        INTEGER,
-   titulo            VARCHAR(255) NOT NULL,
-   fecha_lanzamiento DATE         NOT NULL,
-   portada           VARCHAR(255),
-   CONSTRAINT fk_album_artista FOREIGN KEY (id_artista) REFERENCES ARTISTA (id_artista) ON DELETE CASCADE
+CREATE TABLE plan (
+    id_plan     INTEGER NOT NULL,
+    nombreplan  VARCHAR2(30 BYTE) NOT NULL,
+    descripción VARCHAR2(50 BYTE) NOT NULL,
+    costo       NUMBER NOT NULL
 );
+
+ALTER TABLE plan ADD CONSTRAINT plan_pk PRIMARY KEY (id_plan);
 ```
 
-### GENERO
+### ASESOR
 ```sql
-CREATE TABLE GENERO
-(
-   id_genero   SERIAL PRIMARY KEY,
-   nombre      VARCHAR(100) UNIQUE NOT NULL,
-   descripcion TEXT
+CREATE TABLE asesor (
+    id_asesor    INTEGER NOT NULL,
+    nombrease    VARCHAR2(20 BYTE) NOT NULL,
+    apellidosase VARCHAR2(30 BYTE) NOT NULL,
+    costo        NUMBER NOT NULL
 );
+
+ALTER TABLE asesor ADD CONSTRAINT asesor_pk PRIMARY KEY (id_asesor);
 ```
 
-### SUSCRIPCION
+### PAGO
 ```sql
-CREATE TABLE SUSCRIPCION
-(
-   id_suscripcion    SERIAL PRIMARY KEY,
-   id_usuario        INTEGER,
-   id_plan           INTEGER,
-   id_metodo_pago    INTEGER,
-   fecha_inicio      DATE NOT NULL,
-   fecha_renovacion  DATE NOT NULL,
-   fecha_cancelacion DATE,
-   estado            VARCHAR(10) DEFAULT 'activa' CHECK (estado IN ('activa', 'cancelada', 'expirada')),
-   created_at        TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
-   updated_at        TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
-   CONSTRAINT fk_suscripcion_usuario FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario) ON DELETE CASCADE,
-   CONSTRAINT fk_suscripcion_plan FOREIGN KEY (id_plan) REFERENCES PLANES_SUSCRIPCION (id_plan) ON DELETE CASCADE,
-   CONSTRAINT fk_suscripcion_metodo_pago FOREIGN KEY (id_metodo_pago) REFERENCES METODO_PAGO (id_metodo_pago) ON DELETE CASCADE
+CREATE TABLE pago (
+    id_pago          INTEGER NOT NULL,
+    monto            NUMBER NOT NULL,
+    fecha            DATE NOT NULL,
+    metodo_papo      VARCHAR2(20 BYTE) NOT NULL,
+    comprobante_pago VARCHAR2(20 BYTE) NOT NULL
 );
+
+ALTER TABLE pago ADD CONSTRAINT pago_pk PRIMARY KEY (id_pago);
 ```
 
-### FAVORITOS
+### CONTRATO
 ```sql
-CREATE TABLE FAVORITOS
-(
-   id_usuario     INTEGER,
-   id_cancion     INTEGER,
-   fecha_agregado TIMESTAMP NOT NULL,
-   PRIMARY KEY (id_usuario, id_cancion),
-   CONSTRAINT fk_favoritos_usuario FOREIGN KEY (id_usuario) REFERENCES USUARIO (id_usuario) ON DELETE CASCADE,
-   CONSTRAINT fk_favoritos_cancion FOREIGN KEY (id_cancion) REFERENCES CANCION (id_cancion) ON DELETE CASCADE
+CREATE TABLE contrato (
+    id_contrato      INTEGER NOT NULL,
+    fec_creacion     DATE NOT NULL,
+    estado           VARCHAR2(30 BYTE) NOT NULL,
+    fec_inicio       DATE NOT NULL,
+    fec_finalización DATE NOT NULL,
+    id_pago          INTEGER NOT NULL,
+    id_usuario       INTEGER NOT NULL,
+    id_servicio      INTEGER NOT NULL
 );
+
+ALTER TABLE contrato ADD CONSTRAINT contrato_pk PRIMARY KEY ( id_contrato );
 ```
 
-### CANCION_GENERO
+### DETALLES_PAGO
 ```sql
-CREATE TABLE CANCION_GENERO
-(
-   id_cancion INTEGER,
-   id_genero  INTEGER,
-   PRIMARY KEY (id_cancion, id_genero),
-   CONSTRAINT fk_cancion_genero_cancion FOREIGN KEY (id_cancion) REFERENCES CANCION (id_cancion) ON DELETE CASCADE,
-   CONSTRAINT fk_cancion_genero_genero FOREIGN KEY (id_genero) REFERENCES GENERO (id_genero) ON DELETE CASCADE
+CREATE TABLE detalles_pago (
+    id_detalles_pago INTEGER NOT NULL,
+    id_pago          INTEGER NOT NULL,
+    id_cliente       INTEGER NOT NULL,
+    id_difunto       INTEGER NOT NULL,
+    id_servicio      INTEGER NOT NULL,
+    id_empleado      INTEGER NOT NULL
 );
+
+ALTER TABLE detalles_pago ADD CONSTRAINT detalles_pago_pk PRIMARY KEY (id_detalles_pago);
 ```
 
 ## Relaciones entre Tablas
 
-Ejemplos de relaciones clave:
+```sql
+-- Llaves Foráneas
 
-- USUARIO -> SUSCRIPCION (One-to-Many)
-- ARTISTA -> ALBUM (One-to-Many)
-- ALBUM -> CANCION (One-to-Many)
-- USUARIO <-> CANCION (Many-to-Many a través de FAVORITOS)
-- CANCION <-> GENERO (Many-to-Many a través de CANCION_GENERO)
+ALTER TABLE detalles_pago ADD CONSTRAINT fk_detalles_pago_pago
+    FOREIGN KEY (id_pago) REFERENCES pago (id_pago);
 
+ALTER TABLE detalles_pago ADD CONSTRAINT fk_detalles_pago_difunto
+    FOREIGN KEY (id_difunto) REFERENCES difunto (id_difunto);
 
+ALTER TABLE detalles_pago ADD CONSTRAINT fk_detalles_pago_servicio
+    FOREIGN KEY (id_servicio) REFERENCES servicio (id_servicio);
 
-Para más detalles sobre las tablas y relaciones, consulte el diagrama de la base de datos en el archivo `db_diagram.png`.
+ALTER TABLE detalles_pago ADD CONSTRAINT fk_detalles_pago_empleado
+    FOREIGN KEY (id_empleado) REFERENCES usuario (id_usuario);
+
+ALTER TABLE servicio ADD CONSTRAINT fk_servicio_plan
+    FOREIGN KEY (id_plan) REFERENCES plan (id_plan);
+
+ALTER TABLE servicio ADD CONSTRAINT fk_servicio_asesor
+    FOREIGN KEY (id_asesor) REFERENCES asesor (id_asesor);
+    
+ALTER TABLE contrato ADD CONSTRAINT fk_contrato_pago
+    FOREIGN KEY (id_pago) REFERENCES pago (id_pago);
+    
+ALTER TABLE contrato ADD CONSTRAINT fk_contrato_usuario
+    FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario);
+    
+ALTER TABLE contrato ADD CONSTRAINT fk_contrato_servicio
+    FOREIGN KEY (id_servicio) REFERENCES servicio (id_servicio);
+
+```
+Para más detalles sobre las tablas y relaciones, consulte el diagrama de la base de datos en el archivo `diagrama entidad-relación.png`.
