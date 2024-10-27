@@ -23,14 +23,15 @@ A continuación se presentan algunas de las tablas principales con sus estructur
 ### USUARIO
 ```sql
 CREATE TABLE usuario (
-    id_usuario INTEGER NOT NULL,
-    nombre     VARCHAR2(20 BYTE) NOT NULL,
-    apellidos  VARCHAR2(30 BYTE) NOT NULL,
-    rol        VARCHAR2(20 BYTE) NOT NULL,
-    celular    INTEGER NOT NULL,
-    correo     VARCHAR2(40 BYTE) NOT NULL,
-    dni        INTEGER NOT NULL,
-    contraseña VARCHAR2(30 BYTE) NOT NULL
+    id_usuario INT NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(20) NOT NULL,
+    apellidos VARCHAR(30) NOT NULL,
+    rol VARCHAR(20) NOT NULL,
+    celular BIGINT NOT NULL,
+    correo VARCHAR(40) NOT NULL,
+    dni BIGINT NOT NULL,
+    contraseña VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id_usuario)
 );
 
 ALTER TABLE usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (id_usuario);
@@ -39,12 +40,13 @@ ALTER TABLE usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (id_usuario);
 ### DIFUNTO
 ```sql
 CREATE TABLE difunto (
-    id_difunto          INTEGER NOT NULL,
-    nombredif           VARCHAR2(20 BYTE) NOT NULL,
-    apellidosdif        VARCHAR2(30 BYTE) NOT NULL,
-    fec_nacimiento      DATE NOT NULL,
-    fec_fallecimiento   DATE NOT NULL,
-    lugar_fallecimiento VARCHAR2(30 BYTE) NOT NULL
+    id_difunto INT NOT NULL AUTO_INCREMENT,
+    nombredif VARCHAR(20) NOT NULL,
+    apellidosdif VARCHAR(30) NOT NULL,
+    fec_nacimiento DATE NOT NULL,
+    fec_fallecimiento DATE NOT NULL,
+    lugar_fallecimiento VARCHAR(30) NOT NULL,
+    PRIMARY KEY (id_difunto)
 );
 
 ALTER TABLE difunto ADD CONSTRAINT difunto_pk PRIMARY KEY (id_difunto);
@@ -53,11 +55,12 @@ ALTER TABLE difunto ADD CONSTRAINT difunto_pk PRIMARY KEY (id_difunto);
 ### SERVICIO
 ```sql
 CREATE TABLE servicio (
-    id_servicio INTEGER NOT NULL,
-    nombreser   VARCHAR2(30 BYTE) NOT NULL,
-    descripción VARCHAR2(50 BYTE) NOT NULL,
-    id_plan     INTEGER NOT NULL,
-    id_asesor   INTEGER NOT NULL
+    id_servicio INT NOT NULL AUTO_INCREMENT,
+    nombreser VARCHAR(30) NOT NULL,
+    descripcion VARCHAR(50) NOT NULL,
+    id_plan INT NOT NULL,
+    id_asesor INT NOT NULL,
+    PRIMARY KEY (id_servicio)
 );
 
 ALTER TABLE servicio ADD CONSTRAINT servicio_pk PRIMARY KEY (id_servicio);
@@ -66,10 +69,11 @@ ALTER TABLE servicio ADD CONSTRAINT servicio_pk PRIMARY KEY (id_servicio);
 ### PLAN
 ```sql
 CREATE TABLE plan (
-    id_plan     INTEGER NOT NULL,
-    nombreplan  VARCHAR2(30 BYTE) NOT NULL,
-    descripción VARCHAR2(50 BYTE) NOT NULL,
-    costo       NUMBER NOT NULL
+    id_plan INT NOT NULL AUTO_INCREMENT,
+    nombreplan VARCHAR(30) NOT NULL,
+    descripcion VARCHAR(50) NOT NULL,
+    costo DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (id_plan)
 );
 
 ALTER TABLE plan ADD CONSTRAINT plan_pk PRIMARY KEY (id_plan);
@@ -78,10 +82,11 @@ ALTER TABLE plan ADD CONSTRAINT plan_pk PRIMARY KEY (id_plan);
 ### ASESOR
 ```sql
 CREATE TABLE asesor (
-    id_asesor    INTEGER NOT NULL,
-    nombrease    VARCHAR2(20 BYTE) NOT NULL,
-    apellidosase VARCHAR2(30 BYTE) NOT NULL,
-    costo        NUMBER NOT NULL
+    id_asesor INT NOT NULL AUTO_INCREMENT,
+    nombrease VARCHAR(20) NOT NULL,
+    apellidosase VARCHAR(30) NOT NULL,
+    costo DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (id_asesor)
 );
 
 ALTER TABLE asesor ADD CONSTRAINT asesor_pk PRIMARY KEY (id_asesor);
@@ -90,44 +95,47 @@ ALTER TABLE asesor ADD CONSTRAINT asesor_pk PRIMARY KEY (id_asesor);
 ### PAGO
 ```sql
 CREATE TABLE pago (
-    id_pago          INTEGER NOT NULL,
-    monto            NUMBER NOT NULL,
-    fecha            DATE NOT NULL,
-    metodo_papo      VARCHAR2(20 BYTE) NOT NULL,
-    comprobante_pago VARCHAR2(20 BYTE) NOT NULL
+    id_pago INT NOT NULL AUTO_INCREMENT,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE NOT NULL,
+    metodo_pago VARCHAR(20) NOT NULL,
+    comprobante_pago VARCHAR(20) NOT NULL,
+    PRIMARY KEY (id_pago)
 );
-
-ALTER TABLE pago ADD CONSTRAINT pago_pk PRIMARY KEY (id_pago);
 ```
 
 ### CONTRATO
 ```sql
 CREATE TABLE contrato (
-    id_contrato      INTEGER NOT NULL,
-    fec_creacion     DATE NOT NULL,
-    estado           VARCHAR2(30 BYTE) NOT NULL,
-    fec_inicio       DATE NOT NULL,
-    fec_finalización DATE NOT NULL,
-    id_pago          INTEGER NOT NULL,
-    id_usuario       INTEGER NOT NULL,
-    id_servicio      INTEGER NOT NULL
+    id_contrato INT NOT NULL AUTO_INCREMENT,
+    fec_creacion DATE NOT NULL,
+    estado VARCHAR(30) NOT NULL,
+    fec_inicio DATE NOT NULL,
+    fec_finalizacion DATE NOT NULL,
+    id_pago INT NOT NULL,
+    id_usuario INT NOT NULL,
+    id_servicio INT NOT NULL,
+    PRIMARY KEY (id_contrato),
+    FOREIGN KEY (id_pago) REFERENCES pago(id_pago),
+    FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_servicio) REFERENCES servicio(id_servicio)
 );
-
-ALTER TABLE contrato ADD CONSTRAINT contrato_pk PRIMARY KEY ( id_contrato );
 ```
 
 ### DETALLES_PAGO
 ```sql
 CREATE TABLE detalles_pago (
-    id_detalles_pago INTEGER NOT NULL,
-    id_pago          INTEGER NOT NULL,
-    id_cliente       INTEGER NOT NULL,
-    id_difunto       INTEGER NOT NULL,
-    id_servicio      INTEGER NOT NULL,
-    id_empleado      INTEGER NOT NULL
+    id_detalles_pago INT NOT NULL AUTO_INCREMENT,
+    id_pago INT NOT NULL,
+    id_cliente INT NOT NULL,
+    id_difunto INT NOT NULL,
+    id_servicio INT NOT NULL,
+    id_empleado INT NOT NULL,
+    PRIMARY KEY (id_detalles_pago),
+    FOREIGN KEY (id_pago) REFERENCES pago(id_pago),
+    FOREIGN KEY (id_difunto) REFERENCES difunto(id_difunto),
+    FOREIGN KEY (id_servicio) REFERENCES servicio(id_servicio)
 );
-
-ALTER TABLE detalles_pago ADD CONSTRAINT detalles_pago_pk PRIMARY KEY (id_detalles_pago);
 ```
 
 ## Relaciones entre Tablas
