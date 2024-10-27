@@ -33,8 +33,6 @@ CREATE TABLE usuario (
     contraseña VARCHAR(30) NOT NULL,
     PRIMARY KEY (id_usuario)
 );
-
-ALTER TABLE usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (id_usuario);
 ```
 
 ### DIFUNTO
@@ -48,8 +46,6 @@ CREATE TABLE difunto (
     lugar_fallecimiento VARCHAR(30) NOT NULL,
     PRIMARY KEY (id_difunto)
 );
-
-ALTER TABLE difunto ADD CONSTRAINT difunto_pk PRIMARY KEY (id_difunto);
 ```
 
 ### SERVICIO
@@ -62,8 +58,6 @@ CREATE TABLE servicio (
     id_asesor INT NOT NULL,
     PRIMARY KEY (id_servicio)
 );
-
-ALTER TABLE servicio ADD CONSTRAINT servicio_pk PRIMARY KEY (id_servicio);
 ```
 
 ### PLAN
@@ -75,8 +69,6 @@ CREATE TABLE plan (
     costo DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id_plan)
 );
-
-ALTER TABLE plan ADD CONSTRAINT plan_pk PRIMARY KEY (id_plan);
 ```
 
 ### ASESOR
@@ -88,8 +80,6 @@ CREATE TABLE asesor (
     costo DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id_asesor)
 );
-
-ALTER TABLE asesor ADD CONSTRAINT asesor_pk PRIMARY KEY (id_asesor);
 ```
 
 ### PAGO
