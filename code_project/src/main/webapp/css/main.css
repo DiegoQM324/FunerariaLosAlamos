@@ -1,38 +1,30 @@
-/*
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
-*/
-/* 
-    Created on : 22 oct 2024, 16:15:56
-    Author     : Acer
-*/
+
 :root {
     --default-font: "Open Sans",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --heading-font: "Roboto",  sans-serif;
     --nav-font: "Poppins",  sans-serif;
 }
 
-/* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+
 :root {
-    --background-color: #ffffff; /* Background color for the entire website, including individual sections */
-    --default-color: #364d59; /* Default color used for the majority of the text content across the entire website */
-    --heading-color: #52565e; /* Color for headings, subheadings and title throughout the website */
-    --accent-color: #feb900; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-    --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-    --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+    --background-color: #ffffff; 
+    --default-color: #364d59; 
+    --heading-color: #52565e; 
+    --accent-color: #feb900;
+    --surface-color: #ffffff; 
+    --contrast-color: #ffffff; 
+
+
+:root {
+    --nav-color: rgba(255, 255, 255, 0.55);  
+    --nav-hover-color: #ffffff;
+    --nav-mobile-background-color: #ffffff;
+    --nav-dropdown-background-color: #ffffff; 
+    --nav-dropdown-color: #212529; 
+    --nav-dropdown-hover-color: #feb900; 
 }
 
-/* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
-:root {
-    --nav-color: rgba(255, 255, 255, 0.55);  /* The default color of the main navmenu links */
-    --nav-hover-color: #ffffff; /* Applied to main navmenu links when they are hovered over or active */
-    --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
-    --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
-    --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
-    --nav-dropdown-hover-color: #feb900; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
-}
 
-/* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
 
 .light-background {
     --background-color: #f4f7f6;
@@ -52,9 +44,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     scroll-behavior: smooth;
 }
 
-/*--------------------------------------------------------------
-# General Styling & Shared Classes
---------------------------------------------------------------*/
 body {
     color: var(--default-color);
     background-color: var(--background-color);
@@ -82,8 +71,6 @@ h6 {
     font-family: var(--heading-font);
 }
 
-/* PHP Email Form Messages
-------------------------------*/
 .php-email-form .error-message {
     display: none;
     background: #df1529;
@@ -134,9 +121,6 @@ h6 {
     }
 }
 
-/*--------------------------------------------------------------
-# Global Header
---------------------------------------------------------------*/
 .header {
     --background-color: rgba(255, 255, 255, 0);
     --default-color: #ffffff;
@@ -171,8 +155,7 @@ h6 {
     box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
 }
 
-/* Global Header on Scroll
-------------------------------*/
+
 .scrolled .header {
     --background-color: rgba(255, 255, 255, 0.95);
     --heading-color: #3c3c3c;
@@ -180,10 +163,8 @@ h6 {
     --nav-hover-color: #3c3c3c;
 }
 
-/*--------------------------------------------------------------
-# Navigation Menu
---------------------------------------------------------------*/
-/* Desktop Navigation */
+
+
 @media (min-width: 1200px) {
     .navmenu {
         padding: 0;
@@ -317,7 +298,6 @@ h6 {
     }
 }
 
-/* Mobile Navigation */
 @media (max-width: 1199px) {
     .mobile-nav-toggle {
         color: var(--nav-color);
@@ -443,9 +423,6 @@ h6 {
     }
 }
 
-/*--------------------------------------------------------------
-# Global Footer
---------------------------------------------------------------*/
 .footer {
     color: var(--default-color);
     background-color: var(--background-color);
@@ -609,9 +586,7 @@ h6 {
     }
 }
 
-/*--------------------------------------------------------------
-# Scroll Top Button
---------------------------------------------------------------*/
+
 .scroll-top {
     position: fixed;
     visibility: hidden;
@@ -642,18 +617,14 @@ h6 {
     opacity: 1;
 }
 
-/*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
---------------------------------------------------------------*/
+
 @media screen and (max-width: 768px) {
     [data-aos-delay] {
         transition-delay: 0 !important;
     }
 }
 
-/*--------------------------------------------------------------
-# Global Page Titles & Breadcrumbs
---------------------------------------------------------------*/
+
 .page-title {
     color: var(--default-color);
     background-color: var(--background-color);
@@ -700,9 +671,6 @@ h6 {
     color: color-mix(in srgb, var(--default-color), transparent 20%);
 }
 
-/*--------------------------------------------------------------
-# Global Sections
---------------------------------------------------------------*/
 section,
 .section {
     color: var(--default-color);
@@ -720,9 +688,7 @@ section,
     }
 }
 
-/*--------------------------------------------------------------
-# Global Section Titles
---------------------------------------------------------------*/
+
 .section-title {
     text-align: center;
     padding-bottom: 60px;
@@ -756,9 +722,7 @@ section,
     margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
+
 .hero {
     width: 100%;
     min-height: 100vh;
@@ -919,9 +883,6 @@ section,
     opacity: 0.9;
 }
 
-/*--------------------------------------------------------------
-# Get Started Section
---------------------------------------------------------------*/
 .get-started .content {
     padding: 30px 0;
 }
@@ -1010,9 +971,7 @@ section,
     background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
-/*--------------------------------------------------------------
-# Constructions Section
---------------------------------------------------------------*/
+
 .constructions .card-item {
     background-color: var(--surface-color);
     border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
@@ -1051,9 +1010,7 @@ section,
     margin: 0;
 }
 
-/*--------------------------------------------------------------
-# Services Section
---------------------------------------------------------------*/
+
 .services .service-item {
     background-color: var(--surface-color);
     padding: 40px;
@@ -1130,9 +1087,7 @@ section,
     color: var(--accent-color);
 }
 
-/*--------------------------------------------------------------
-# Alt Services Section
---------------------------------------------------------------*/
+
 .alt-services .features-image {
     position: relative;
     min-height: 400px;
@@ -1213,9 +1168,6 @@ section,
     margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
-# Features Section
---------------------------------------------------------------*/
 .features .nav-tabs {
     border: 0;
 }
@@ -1305,9 +1257,6 @@ section,
     margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
-# Projects Section
---------------------------------------------------------------*/
 .projects .portfolio-filters {
     padding: 0;
     margin: 0 auto 20px auto;
@@ -1417,9 +1366,7 @@ section,
     transform: scale(1.1);
 }
 
-/*--------------------------------------------------------------
-# Testimonials Section
---------------------------------------------------------------*/
+
 .testimonials .testimonial-wrap {
     padding-left: 50px;
 }
@@ -1536,9 +1483,7 @@ section,
     }
 }
 
-/*--------------------------------------------------------------
-# Recent Blog Posts Section
---------------------------------------------------------------*/
+
 .recent-blog-posts .post-item {
     background: var(--surface-color);
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
@@ -1612,9 +1557,7 @@ section,
     transform: scale(1.1);
 }
 
-/*--------------------------------------------------------------
-# About Section
---------------------------------------------------------------*/
+
 .about .inner-title {
     font-size: 2.75rem;
     font-weight: 700;
@@ -1716,9 +1659,6 @@ section,
     z-index: 1;
 }
 
-/*--------------------------------------------------------------
-# Stats Counter Section
---------------------------------------------------------------*/
 .stats-counter .stats-item {
     box-shadow: 0px 0 30px rgba(0, 0, 0, 0.1);
     padding: 30px;
@@ -1745,9 +1685,7 @@ section,
     font-size: 16px;
 }
 
-/*--------------------------------------------------------------
-# Alt Services 2 Section
---------------------------------------------------------------*/
+
 .alt-services-2 .features-image {
     position: relative;
     min-height: 400px;
@@ -1792,9 +1730,6 @@ section,
     margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
-# Team Section
---------------------------------------------------------------*/
 .team .member {
     position: relative;
 }
@@ -1871,9 +1806,6 @@ section,
     opacity: 1;
 }
 
-/*--------------------------------------------------------------
-# Features Cards Section
---------------------------------------------------------------*/
 .features-cards h3 {
     font-size: 20px;
     font-weight: 700;
@@ -1898,9 +1830,7 @@ section,
     margin-right: 6px;
 }
 
-/*--------------------------------------------------------------
-# Service Details Section
---------------------------------------------------------------*/
+
 .service-details .services-list {
     background-color: var(--surface-color);
     padding: 10px 30px;
@@ -1964,9 +1894,6 @@ section,
     color: var(--accent-color);
 }
 
-/*--------------------------------------------------------------
-# Project Details Section
---------------------------------------------------------------*/
 .project-details .portfolio-details-slider img {
     width: 100%;
 }
@@ -2219,9 +2146,7 @@ section,
     transform: scale(1.1);
 }
 
-/*--------------------------------------------------------------
-# Blog Pagination Section
---------------------------------------------------------------*/
+
 .blog-pagination {
     padding-top: 0;
     color: color-mix(in srgb, var(--default-color), transparent 40%);
@@ -2258,9 +2183,7 @@ section,
     color: var(--contrast-color);
 }
 
-/*--------------------------------------------------------------
-# Blog Details Section
---------------------------------------------------------------*/
+
 .blog-details {
     padding-bottom: 30px;
 }
@@ -2411,9 +2334,7 @@ section,
     padding-left: 5px;
 }
 
-/*--------------------------------------------------------------
-# Blog Author Section
---------------------------------------------------------------*/
+
 .blog-author {
     padding: 10px 0 40px 0;
 }
@@ -2452,9 +2373,7 @@ section,
     margin-bottom: 0;
 }
 
-/*--------------------------------------------------------------
-# Blog Comments Section
---------------------------------------------------------------*/
+
 .blog-comments {
     padding: 10px 0;
 }
@@ -2511,9 +2430,6 @@ section,
     padding-left: 40px;
 }
 
-/*--------------------------------------------------------------
-# Comment Form Section
---------------------------------------------------------------*/
 .comment-form {
     padding-top: 10px;
 }
@@ -2592,9 +2508,7 @@ section,
     background-color: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
-/*--------------------------------------------------------------
-# Contact Section
---------------------------------------------------------------*/
+
 .contact .info-item {
     background-color: var(--surface-color);
     padding: 20px 0 30px 0;
@@ -2679,16 +2593,12 @@ section,
     background: color-mix(in srgb, var(--accent-color), transparent 20%);
 }
 
-/*--------------------------------------------------------------
-# Starter Section Section
---------------------------------------------------------------*/
+
 .starter-section {
-    /* Add your styles here */
+
 }
 
-/*--------------------------------------------------------------
-# Widgets
---------------------------------------------------------------*/
+
 .widgets-container {
     background-color: var(--surface-color);
     padding: 30px;
