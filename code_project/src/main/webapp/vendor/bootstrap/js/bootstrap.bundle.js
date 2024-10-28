@@ -54,11 +54,7 @@
   const MILLISECONDS_MULTIPLIER = 1000;
   const TRANSITION_END = 'transitionend';
 
-  /**
-   * Properly escape IDs selectors to handle weird IDs
-   * @param {string} selector
-   * @returns {string}
-   */
+
   const parseSelector = selector => {
     if (selector && window.CSS && window.CSS.escape) {
       // document.querySelector needs escaping to handle IDs (html5+) containing for instance /
