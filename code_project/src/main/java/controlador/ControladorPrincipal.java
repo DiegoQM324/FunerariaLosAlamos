@@ -6,6 +6,7 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -99,10 +100,12 @@ public class ControladorPrincipal extends HttpServlet {
 
         String dni = request.getParameter("dni");
         String contraseña = request.getParameter("contrasena");
+        
+        String contraseñaEncriptada = encriptarContraseñaMD5(contraseña);
 
         // Validar credenciales con la base de datos usando UsuarioDAO
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario usuarioAutenticado = usuarioDAO.iniciarSesion(dni, contraseña);
+        Usuario usuarioAutenticado = usuarioDAO.iniciarSesion(dni, contraseñaEncriptada);
 
         // Verificar si las credenciales son correctas
         if (usuarioAutenticado != null) {
@@ -133,6 +136,8 @@ public class ControladorPrincipal extends HttpServlet {
 
     private void registrarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
 
         String nombre = request.getParameter("nombre");
         String apellido = request.getParameter("apellido");
@@ -141,9 +146,11 @@ public class ControladorPrincipal extends HttpServlet {
         String dni = request.getParameter("dni");
         String contraseña = request.getParameter("contrasena");
         String rol = request.getParameter("rol");
+        
+        String contraseñaEncriptada = encriptarContraseñaMD5(contraseña);
 
         // Crear el objeto Usuario con los datos del formulario
-        Usuario nuevoUsuario = new Usuario(nombre, apellido, Integer.parseInt(celular), correo, Integer.parseInt(dni), contraseña, "usuario");
+        Usuario nuevoUsuario = new Usuario(nombre, apellido, Integer.parseInt(celular), correo, Integer.parseInt(dni), contraseñaEncriptada, "usuario");
         // Usar el DAO para registrar el usuario
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         boolean registroExitoso = usuarioDAO.registrarUsuario(nuevoUsuario);
@@ -163,6 +170,27 @@ public class ControladorPrincipal extends HttpServlet {
         session.invalidate();
         // Redirigir a la página principal (index.jsp)
         response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+
+    private String encriptarContraseñaMD5(String contraseña) {
+        try {
+            // Crear instancia de MessageDigest para MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hash = md.digest(contraseña.getBytes("UTF-8"));
+
+            // Convertir bytes a formato hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al encriptar contraseña con MD5", e);
+        }
     }
 
     /**
