@@ -153,16 +153,60 @@ public class ControladorUsuarios extends HttpServlet {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Usuarios");
 
-        // Crear la fila de encabezados
-        Row headerRow = sheet.createRow(0);
+        // Ajustar ancho de columnas
+        for (int i = 0; i < 7; i++) {
+            sheet.setColumnWidth(i, 6000);
+        }
+
+        // Agregar la imagen (logo de la empresa)
+        try (InputStream inputStream = request.getServletContext().getResourceAsStream("/img/logocreado.jpg")) {
+            byte[] imageBytes = inputStream.readAllBytes();
+            int pictureIdx = workbook.addPicture(imageBytes, Workbook.PICTURE_TYPE_PNG);
+
+            Drawing<?> drawing = sheet.createDrawingPatriarch();
+            ClientAnchor anchor = workbook.getCreationHelper().createClientAnchor();
+            anchor.setCol1(1);  // Columna inicial (ajusta según el tamaño)
+            anchor.setRow1(1);  // Fila inicial para la imagen
+            Picture picture = drawing.createPicture(anchor, pictureIdx);
+            picture.resize();  // Ajustar la imagen automáticamente
+        } catch (NullPointerException e) {
+            System.out.println("No se encontró el logo en la ruta especificada.");
+        }
+
+        // Estilo del título "FUNERARIA LOS ALAMOS"
+        Row titleRow = sheet.createRow(5); // Fila donde irá el título, debajo de la imagen
+        Cell titleCell = titleRow.createCell(1);
+        titleCell.setCellValue("FUNERARIA LOS ALAMOS");
+
+        CellStyle titleStyle = workbook.createCellStyle();
+        Font titleFont = workbook.createFont();
+        titleFont.setBold(true);
+        titleFont.setFontHeightInPoints((short) 18);
+        titleStyle.setFont(titleFont);
+        titleStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        titleCell.setCellStyle(titleStyle);
+        sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(5, 5, 1, 6)); // Fusionar celdas para el título
+
+        // Estilo del encabezado de la tabla
+        CellStyle headerStyle = workbook.createCellStyle();
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 14);
+        headerStyle.setFont(headerFont);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        // Crear la fila de encabezados para la tabla
+        Row headerRow = sheet.createRow(7); // La tabla comenzará en la fila 8 (índice 7)
         String[] columnHeaders = {"ID", "Nombre", "Apellidos", "Celular", "Correo", "DNI", "Rol"};
         for (int i = 0; i < columnHeaders.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(columnHeaders[i]);
-        }
+            cell.setCellStyle(headerStyle);
+        }    
 
         // Llenar las filas con los datos de los usuarios
-        int rowNum = 1;
+        int rowNum = 8; // Fila donde empiezan los datos
         for (Usuario usuario : usuarios) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(usuario.getId_usuario());
@@ -180,7 +224,7 @@ public class ControladorUsuarios extends HttpServlet {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setHeader("Content-Disposition", "attachment; filename=usuarios.xlsx");
 
-        // Escribir el contenido del libro en la respuesta HTTP
+        // Escribir el contenido en la respuesta
         try (OutputStream out = response.getOutputStream()) {
             workbook.write(out);
         }

@@ -5,6 +5,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
@@ -17,6 +18,12 @@ import modelo.dao.AsesorDAO;
 import modelo.dto.Asesor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -47,7 +54,7 @@ public class ControladorAsesores extends HttpServlet {
      * @throws ServletException Si ocurre un error específico del servlet.
      * @throws IOException Si ocurre un error de entrada/salida.
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -72,7 +79,7 @@ public class ControladorAsesores extends HttpServlet {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -86,7 +93,7 @@ public class ControladorAsesores extends HttpServlet {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
 
@@ -111,22 +118,67 @@ public class ControladorAsesores extends HttpServlet {
      * @throws IOException Si ocurre un error de entrada/salida.
      */
     private void exportarAsesores(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AsesorDAO asesordao = new AsesorDAO();
-        List<Asesor> asesores = asesordao.obtenerTodosLosAsesores();
+
+        AsesorDAO asesorDAO = new AsesorDAO();
+        List<Asesor> asesores = asesorDAO.obtenerTodosLosAsesores();
 
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Asesores");
 
-        // Crear la fila de encabezados
-        Row headerRow = sheet.createRow(0);
+        // Ajustar ancho de columnas
+        for (int i = 0; i < 4; i++) {
+            sheet.setColumnWidth(i, 6000);
+        }
+
+        // Agregar la imagen (logo de la empresa)
+        try (InputStream inputStream = request.getServletContext().getResourceAsStream("/img/logocreado.jpg")) {
+            byte[] imageBytes = inputStream.readAllBytes();
+            int pictureIdx = workbook.addPicture(imageBytes, Workbook.PICTURE_TYPE_PNG);
+
+            Drawing<?> drawing = sheet.createDrawingPatriarch();
+            ClientAnchor anchor = workbook.getCreationHelper().createClientAnchor();
+            anchor.setCol1(1);  // Columna inicial
+            anchor.setRow1(1);  // Fila inicial para la imagen
+            Picture picture = drawing.createPicture(anchor, pictureIdx);
+            picture.resize();  // Ajustar imagen automáticamente
+        } catch (NullPointerException e) {
+            System.out.println("No se encontró el logo en la ruta especificada.");
+        }
+
+        // Estilo del título "FUNERARIA LOS ALAMOS"
+        Row titleRow = sheet.createRow(5); // Fila donde va el título, debajo de la imagen
+        Cell titleCell = titleRow.createCell(1);
+        titleCell.setCellValue("FUNERARIA LOS ALAMOS");
+
+        CellStyle titleStyle = workbook.createCellStyle();
+        Font titleFont = workbook.createFont();
+        titleFont.setBold(true);
+        titleFont.setFontHeightInPoints((short) 18);
+        titleStyle.setFont(titleFont);
+        titleStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        titleCell.setCellStyle(titleStyle);
+        sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(5, 5, 1, 3)); // Fusionar celdas para el título
+
+        // Estilo del encabezado de la tabla
+        CellStyle headerStyle = workbook.createCellStyle();
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 14);
+        headerStyle.setFont(headerFont);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        // Crear la fila de encabezados para la tabla
+        Row headerRow = sheet.createRow(7); // La tabla comienza en la fila 8 (índice 7)
         String[] columnHeaders = {"ID", "Nombre", "Apellidos", "Costo"};
         for (int i = 0; i < columnHeaders.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(columnHeaders[i]);
+            cell.setCellStyle(headerStyle);
         }
 
         // Llenar las filas con los datos de los asesores
-        int rowNum = 1;
+        int rowNum = 8; // La fila donde empiezan los datos
         for (Asesor asesor : asesores) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(asesor.getIdAsesor());

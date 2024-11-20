@@ -201,7 +201,7 @@
                         </div>
 
                         <div class="col-lg-5" data-aos="zoom-out" data-aos-delay="200">
-                            <form action="forms/quote.php" method="post" class="php-email-form">
+                            <form action="index.jsp" method="post" class="php-email-form">
                                 <h3>"Un espacio para ti "</h3>
                                 <p>"Solicita orientación" o "Recibe una consulta personalizada"</p>
                                 <div class="row gy-3">
@@ -578,7 +578,7 @@
         <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
         <!-- Preloader -->
-        <div id="preloader"></div>
+        <!--<div id="preloader"></div>-->
 
         <!-- Vendor JS Files -->
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

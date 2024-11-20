@@ -17,28 +17,24 @@ import java.util.logging.Logger;
 public class ConectaDB {
 
     public Connection getConexion() {
-
         Connection cnx = null;
 
-        String url = "jdbc:mysql://localhost:3306/funeraria?useTimeZone=true&"
-                + "serverTimezone=UTC&autoReconnect=true";
-
+        // URL de conexión con configuración adecuada para UTF-8
+        String url = "jdbc:mysql://localhost:3306/gol?useUnicode=true&characterEncoding=utf8&useTimeZone=true&serverTimezone=UTC&autoReconnect=true";
         String user = "root";
         String clave = "root";
-
         String Driver = "com.mysql.cj.jdbc.Driver";
 
         try {
-            Class.forName(Driver);
-            cnx = DriverManager.getConnection(url, user, clave);
+            Class.forName(Driver); // Cargar el controlador JDBC
+            cnx = DriverManager.getConnection(url, user, clave); // Establecer la conexión
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ConectaDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConectaDB.class.getName()).log(Level.SEVERE, "Error cargando el driver JDBC", ex);
         } catch (SQLException ex) {
-            Logger.getLogger(ConectaDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConectaDB.class.getName()).log(Level.SEVERE, "Error al conectar con la base de datos", ex);
         }
-        return cnx;
-
+        return cnx; // Retornar la conexión establecida
     }
 
     public static void main(String[] args) throws SQLException {

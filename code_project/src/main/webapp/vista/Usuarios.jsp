@@ -70,7 +70,7 @@
                 <hr class="sidebar-divider my-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" href="Admin.jsp">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
@@ -311,10 +311,10 @@
         <script src="../vendorAdmin/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="../vendorAdmin/jquery-easing/jquery.easing.min.js"></script>
+        <!--<script src="../vendorAdmin/jquery-easing/jquery.easing.min.js"></script>-->
 
         <!-- Custom scripts for all pages-->
-        <script src="../jsAdmin/sb-admin-2.min.js"></script>
+         <!--<script src="../jsAdmin/sb-admin-2.min.js"></script>-->
 
     </body>
 </html>
