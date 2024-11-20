@@ -82,7 +82,7 @@
         <header id="header" class="header d-flex align-items-center fixed-top">
             <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-                <a href="index.html" class="logo d-flex align-items-center">
+                <a href="index.jsp" class="logo d-flex align-items-center">
                     <h1 class="sitename">Funeraria Los Alamos</h1> <span>.</span>
                 </a>
 
@@ -193,7 +193,7 @@
 
                         <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="100">
                             <div class="content">
-                                <h3>¡No dudes es mandarnos todas tus insertidunbres!</h3>
+                                <h3>¡No dudes es mandarnos todas tus incertidumbres!</h3>
                                 <p>"Espacio creado para que puedas expresar tus dudas y recibir orientación personalizada en estos momentos difíciles."
                                 </p>
                                 <p>Completa los campos y recibe asesoramiento personalizado.</p>
