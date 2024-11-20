@@ -728,20 +728,20 @@
 
         <!-- Bootstrap core JavaScript-->
         <script src="../vendorAdmin/jquery/jquery.min.js"></script>
-        <script src="../vendorAdmin/bootstrap/js/bootstrap.bundle.min.js"></script>
+         <script src="../vendorAdmin/bootstrap/js/bootstrap.bundle.min.js"></script>
 
         <!-- Core plugin JavaScript-->
-        <script src="../vendorAdmin/jquery-easing/jquery.easing.min.js"></script>
+        <!--<script src="../vendorAdmin/jquery-easing/jquery.easing.min.js"></script>-->
 
         <!-- Custom scripts for all pages-->
-        <script src="../jsAdmin/sb-admin-2.min.js"></script>
+        <!--<script src="../jsAdmin/sb-admin-2.min.js"></script>-->
 
         <!-- Page level plugins -->
-        <script src="../vendorAdmin/chart.js/Chart.min.js"></script>
+        <!--<script src="../vendorAdmin/chart.js/Chart.min.js"></script>-->
 
         <!-- Page level custom scripts -->
-        <script src="../jsAdmin/demo/chart-area-demo.js"></script>
-        <script src="../jsAdmin/demo/chart-pie-demo.js"></script>
+        <!--<script src="../jsAdmin/demo/chart-area-demo.js"></script>-->
+        <!--<script src="../jsAdmin/demo/chart-pie-demo.js"></script>-->
 
     </body>
 </html>

@@ -5,6 +5,7 @@
 package controlador;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -18,11 +19,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import modelo.dao.DifuntoDAO;
+import modelo.dao.UsuarioDAO;
 
 import modelo.dto.Difunto;
+import modelo.dto.Usuario;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.Picture;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -140,9 +150,19 @@ public class ControladorDifunto extends HttpServlet {
         // Usar el DAO para registrar el difunto
         DifuntoDAO difDAO = new DifuntoDAO();
         boolean registroExitoso = difDAO.registrarDifunto(nuevoDifunto);
+        String servicioSeleccionado = request.getParameter("servicio");
 
         if (registroExitoso) {
-            response.sendRedirect(request.getContextPath() + "/vista/Servicios.jsp");
+            HttpSession session = request.getSession();
+            session.setAttribute("servicioContratado", servicioSeleccionado);
+
+            session.setAttribute("nombreDifunto", nombre);
+            session.setAttribute("apellidoDifunto", apellido);
+            session.setAttribute("fechaNacimientoDifunto", fecNacimiento);
+            session.setAttribute("fechaFallecimientoDifunto", fecFallecimiento);
+            session.setAttribute("lugarFallecimientoDifunto", lugarFallecimiento);
+
+            response.sendRedirect(request.getContextPath() + "/vista/Venta.jsp");
         } else {
             System.out.println("Error al registrar difunto.");
             response.sendRedirect(request.getContextPath() + "/errorRegistro.jsp");  // Redirigir en caso de error
@@ -151,38 +171,83 @@ public class ControladorDifunto extends HttpServlet {
 
     private void exportarDifuntos(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        DifuntoDAO difuntodao = new DifuntoDAO();
-        List<Difunto> difuntos = difuntodao.obtenerTodosLosDifuntos();
+        DifuntoDAO difuntoDAO = new DifuntoDAO();
+        List<Difunto> difuntos = difuntoDAO.obtenerTodosLosDifuntos();
 
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Difuntos");
 
-        // Crear la fila de encabezados
-        Row headerRow = sheet.createRow(0);
-        String[] columnHeaders = {"ID", "Nombre", "Apellidos", "FechaNacimiento","FechaFallecimiento","LugarFallecimiento"};
+        // Ajustar ancho de columnas
+        for (int i = 0; i < 6; i++) {
+            sheet.setColumnWidth(i, 6000);
+        }
+
+        // Agregar la imagen (logo de la empresa)
+        try (InputStream inputStream = request.getServletContext().getResourceAsStream("/img/logocreado.jpg")) {
+            byte[] imageBytes = inputStream.readAllBytes();
+            int pictureIdx = workbook.addPicture(imageBytes, Workbook.PICTURE_TYPE_PNG);
+
+            Drawing<?> drawing = sheet.createDrawingPatriarch();
+            ClientAnchor anchor = workbook.getCreationHelper().createClientAnchor();
+            anchor.setCol1(1);  // Columna inicial
+            anchor.setRow1(1);  // Fila inicial para la imagen
+            Picture picture = drawing.createPicture(anchor, pictureIdx);
+            picture.resize();  // Ajustar imagen automáticamente
+        } catch (NullPointerException e) {
+            System.out.println("No se encontró el logo en la ruta especificada.");
+        }
+
+        // Estilo del título "FUNERARIA LOS ALAMOS"
+        Row titleRow = sheet.createRow(5); // Fila donde va el título, debajo de la imagen
+        Cell titleCell = titleRow.createCell(1);
+        titleCell.setCellValue("FUNERARIA LOS ALAMOS");
+
+        CellStyle titleStyle = workbook.createCellStyle();
+        Font titleFont = workbook.createFont();
+        titleFont.setBold(true);
+        titleFont.setFontHeightInPoints((short) 18);
+        titleStyle.setFont(titleFont);
+        titleStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        titleCell.setCellStyle(titleStyle);
+        sheet.addMergedRegion(new org.apache.poi.ss.util.CellRangeAddress(5, 5, 1, 5)); // Fusionar celdas para el título
+
+        // Estilo del encabezado de la tabla
+        CellStyle headerStyle = workbook.createCellStyle();
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 14);
+        headerStyle.setFont(headerFont);
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+
+        // Crear la fila de encabezados para la tabla
+        Row headerRow = sheet.createRow(7); // La tabla comienza en la fila 8 (índice 7)
+        String[] columnHeaders = {"ID", "Nombre", "Apellidos", "Fecha Nacimiento", "Fecha Fallecimiento", "Lugar Fallecimiento"};
         for (int i = 0; i < columnHeaders.length; i++) {
             Cell cell = headerRow.createCell(i);
             cell.setCellValue(columnHeaders[i]);
+            cell.setCellStyle(headerStyle);
         }
 
-        // Llenar las filas con los datos de los asesores
-        int rowNum = 1;
+        // Llenar las filas con los datos de los difuntos
+        int rowNum = 8; // La fila donde empiezan los datos
         for (Difunto difunto : difuntos) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(difunto.getIdDifunto());
             row.createCell(1).setCellValue(difunto.getNombreDif());
             row.createCell(2).setCellValue(difunto.getApellidosDif());
-            row.createCell(3).setCellValue(difunto.getFecNacimiento());
-            row.createCell(4).setCellValue(difunto.getFecFallecimiento());
+            row.createCell(3).setCellValue(difunto.getFecNacimiento().toString());
+            row.createCell(4).setCellValue(difunto.getFecFallecimiento().toString());
             row.createCell(5).setCellValue(difunto.getLugarFallecimiento());
-
         }
+
+        System.out.println("Total de difuntos exportados: " + difuntos.size());
 
         // Configurar la respuesta HTTP para descargar el archivo
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        response.setHeader("Content-Disposition", "attachment; filename=asesores.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=difuntos.xlsx");
 
-        // Escribir el contenido del libro en la respuesta HTTP
+        // Escribir el contenido en la respuesta
         try (OutputStream out = response.getOutputStream()) {
             workbook.write(out);
         }

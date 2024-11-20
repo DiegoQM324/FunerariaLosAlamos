@@ -80,7 +80,7 @@
                 color: #ddd;
             }
 
-            input[type="text"], input[type="email"], input[type="password"], select {
+            input[type="text"], input[type="email"], input[type="password"], input[type="number"] ,select {
                 width: 100%;
                 padding: 12px;
                 border-radius: 8px;
@@ -128,6 +128,12 @@
             p a:hover {
                 text-decoration: underline;
             }
+
+            input[type="number"]::-webkit-outer-spin-button,
+            input[type="number"]::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
         </style>
     </head>
     <body>
@@ -155,13 +161,15 @@
 
                     <div class="form-group">
                         <label for="dni">DNI:</label>
-                        <input type="text" id="dni" name="dni" placeholder="Ingresa tu DNI" value="${dni}" required>
+                        <input type="number" id="dni" name="dni"  oninput="this.value = this.value.slice(0, 8)" placeholder="Ingresa tu DNI" value="${dni}" required>
                     </div>
 
                     <div class="form-group">
                         <label for="celular">Celular:</label>
-                        <input type="text" id="celular" name="celular" placeholder="Ingresa tu celular" value="${celular}" required>
+                        <input type="number" id="celular" name="celular" oninput="this.value = this.value.slice(0, 9)" placeholder="Ingresa tu celular" value="${celular}" required>
                     </div>
+
+
 
                     <div class="form-group">
                         <label for="correo">Correo Electrónico:</label>
@@ -173,14 +181,14 @@
                         <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" value="${contrasena}" required>
                     </div>
 
-                   <!-- <div class="form-group">
-                        <label for="rol">Rol:</label>
-                        <select id="rol" name="rol" required>
-                            <option value="" disabled selected>Selecciona un rol</option>
-                            <option value="usuario" <%= "usuario".equals(request.getAttribute("rol")) ? "selected" : ""%>>Usuario</option>
-                            <option value="administrador" <%= "administrador".equals(request.getAttribute("rol")) ? "selected" : ""%>>Administrador</option>
-                        </select>
-                    </div>-->
+                    <!-- <div class="form-group">
+                         <label for="rol">Rol:</label>
+                         <select id="rol" name="rol" required>
+                             <option value="" disabled selected>Selecciona un rol</option>
+                             <option value="usuario" <%= "usuario".equals(request.getAttribute("rol")) ? "selected" : ""%>>Usuario</option>
+                             <option value="administrador" <%= "administrador".equals(request.getAttribute("rol")) ? "selected" : ""%>>Administrador</option>
+                         </select>
+                     </div>-->
 
                     <button type="submit" name="accion" value="Registrar">Registrarse</button>
                 </form>

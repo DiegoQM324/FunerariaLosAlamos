@@ -167,6 +167,8 @@
                                         <label for="lugar" class="form-label">Lugar de Fallecimiento</label>
                                         <input type="text" class="form-control" value="${lugarFallecimiento}" id="lugar" name="lugar" required>
                                     </div>
+                                    <input type="hidden" name="servicio" value="<%= request.getParameter("servicio")%>">
+
                                     <button type="submit" name="accion" value="Registrar" class="btn btn-primary">Registrar</button>
                                 </form>
                             </div>
@@ -380,7 +382,7 @@
         <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
         <!-- Preloader -->
-        <div id="preloader"></div>
+        <!--<div id="preloader"></div>-->
 
         <!-- Vendor JS Files -->
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

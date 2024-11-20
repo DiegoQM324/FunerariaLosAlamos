@@ -9,7 +9,16 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.bootstrap = factory());
 })(this, (function () { 'use strict';
 
+  /**
+   * --------------------------------------------------------------------------
+   * Bootstrap dom/data.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+   * --------------------------------------------------------------------------
+   */
 
+  /**
+   * Constants
+   */
 
   const elementMap = new Map();
   const Data = {
@@ -48,13 +57,22 @@
     }
   };
 
- 
+  /**
+   * --------------------------------------------------------------------------
+   * Bootstrap util/index.js
+   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+   * --------------------------------------------------------------------------
+   */
 
   const MAX_UID = 1000000;
   const MILLISECONDS_MULTIPLIER = 1000;
   const TRANSITION_END = 'transitionend';
 
-
+  /**
+   * Properly escape IDs selectors to handle weird IDs
+   * @param {string} selector
+   * @returns {string}
+   */
   const parseSelector = selector => {
     if (selector && window.CSS && window.CSS.escape) {
       // document.querySelector needs escaping to handle IDs (html5+) containing for instance /

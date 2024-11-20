@@ -106,7 +106,7 @@
                 %>
 
                 <!-- Modal de Login/Registro -->
-                
+
 
                 <!-- Scripts para manejar el modal, login/registro y cierre de sesión -->
 
@@ -139,13 +139,13 @@
                     <div class="row gy-4">
 
                         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                            <div class="service-item  position-relative">
+                            <div class="service-item position-relative">
                                 <div class="icon">
                                     <i class="fa-solid fas fa-cross"></i>
                                 </div>
                                 <h3>Sepulturas</h3>
                                 <p>Ofrecemos sepulturas en terrenos dignos y tranquilos, diseñados para honrar la memoria de tus seres queridos con respeto y solemnidad.</p>
-                                <a href="Sepultura.jsp" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                                <a href="Sepultura.jsp?servicio=Sepulturas" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div><!-- End Service Item -->
 
@@ -156,7 +156,7 @@
                                 </div>
                                 <h3>Cremaciones</h3>
                                 <p>Nuestra opción de cremación proporciona una alternativa respetuosa y significativa, con servicios personalizados que permiten recordar a quienes hemos perdido.</p>
-                                <a href="Sepultura.jsp" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                                <a href="Sepultura.jsp?servicio=Cremaciones" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div><!-- End Service Item -->
 
@@ -167,7 +167,7 @@
                                 </div>
                                 <h3>Traslados</h3>
                                 <p>Realizamos traslados con cuidado y profesionalismo, garantizando que tus seres queridos sean llevados a su destino final de manera digna y segura.</p>
-                                <a href="Sepultura.jsp" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                                <a href="Sepultura.jsp?servicio=Traslados" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div><!-- End Service Item -->
 
@@ -178,7 +178,7 @@
                                 </div>
                                 <h3>Ceremonia Pre Sepultura</h3>
                                 <p>Organizamos ceremonias pre sepultura que rinden homenaje a la vida del fallecido, brindando un espacio para la reflexión y el apoyo familiar.</p>
-                                <a href="Sepultura.jsp" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                                <a href="Sepultura.jsp?servicio=Ceremonia%20Pre%20Sepultura" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div><!-- End Service Item -->
 
@@ -390,7 +390,7 @@
         <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
         <!-- Preloader -->
-        <div id="preloader"></div>
+        <!--<div id="preloader"></div>-->
 
         <!-- Vendor JS Files -->
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
