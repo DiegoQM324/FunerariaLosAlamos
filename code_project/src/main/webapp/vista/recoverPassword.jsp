@@ -1,16 +1,15 @@
 <%-- 
-    Document   : Iniciarsesion
-    Created on : 22 oct 2024, 18:09:49
-    Author     : Acer
+    Document   : recoverPassword
+    Created on : 30 nov 2024, 3:18:48 p.m.
+    Author     : seeke
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Iniciar Sesión</title>
+        <title>Recuperación de Contraseña</title>
         <style>
             body {
                 margin: 0;
@@ -64,12 +63,12 @@
             label {
                 display: block;
                 margin-bottom: 8px;
-                font-size: 14px;
+                font-size: 16px;
                 color: #ddd;
             }
 
-            input[type="text"], input[type="password"] {
-                width: 100%;
+            input[type="email"]{
+                width: 95%;
                 padding: 12px;
                 border-radius: 8px;
                 border: 1px solid #444;
@@ -107,7 +106,7 @@
                 text-align: center;
                 margin-top: 20px;
                 color: #ffffff;
-                
+
             }
 
             p a {
@@ -128,21 +127,22 @@
 
             <!-- Contenedor del Formulario -->
             <div class="form-container">
-                <h2>Iniciar Sesión</h2>
-                <form action="<%= request.getContextPath()%>/controlador/ControladorPrincipal" method="post">
+                <h2>Recuperación de Contraseña</h2>
+                <form action="<%= request.getContextPath()%>/controlador/PasswordRecoveryController" method="post">
                     <div class="form-group">
-                        <label for="dni">DNI:</label>
-                        <input type="text" value="${dni}" id="dni" name="dni" placeholder="Ingresa tu DNI" required>
+                        <label for="email">Correo electrónico:</label>
+                        <input type="email" id="email" placeholder="Ingresa tu correo" name="email" required>
                     </div>
-                    <div class="form-group">
-                        <label for="contrasena">Contraseña:</label>
-                        <input type="password" value="${contrasena}" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
-                    </div>
-                    <button type="submit" name="accion" value="Ingresar">Iniciar Sesión</button>
+                    <button type="submit" name="accion" value="Recuperar">Recuperar</button>
+                    <% String message = (String) request.getAttribute("message"); %>
+                    <% if (message != null && !message.isEmpty()) {%>
+                    <p style="color: <%= message.contains("exitosamente") ? "green" : "red"%>; margin-top: 10px;"><%= message%></p>
+                    <% }%>
                 </form>
-                <p>¿No tienes una cuenta? <a href="Registrar.jsp">Regístrate aquí</a></p>
-                <p><a href="recoverPassword.jsp">¿Has olvidado tu contraseña?</a></p>
+                <p><a href="${pageContext.request.contextPath}/vista/Iniciarsesion.jsp"">Volver al inicio</a></p>
             </div>
         </div>
     </body>
 </html>
+
+

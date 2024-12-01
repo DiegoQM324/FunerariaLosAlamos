@@ -172,7 +172,11 @@ public class ControladorPrincipal extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
+<<<<<<< HEAD
+    public String encriptarContraseñaMD5(String contraseña) {
+=======
     private String encriptarContraseñaMD5(String contraseña) {
+>>>>>>> 0fac6331805bf4b42a4dc2e6e57e5c5c19eabcc6
         try {
             // Crear instancia de MessageDigest para MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
