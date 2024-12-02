@@ -395,83 +395,95 @@
                             }
                         </script>
                     </div>
-                    <!-- Botón de Procesar Compra -->
-                    <div class="text-center">
-                        <button id="procesar-compra" class="btn btn-danger">Procesar Compra</button>
-                    </div>
+                                <!-- Selector para elegir entre boleta o factura -->
+<div class="text-center mb-4">
+            <label for="tipo-documento" class="mr-2">Seleccione el tipo de documento:</label>
+            <select id="tipo-documento" class="border rounded px-2 py-1">
+                <option value="boleta">Boleta</option>
+                <option value="factura">Factura</option>
+            </select>
+        </div>
+
+<!-- Botón de Procesar Compra -->
+
+        <div class="text-center">
+            <div id="factura-container" style="display: none;"></div>
+            <button id="procesar-compra" class="btn btn-danger px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600">Procesar Compra</button>
+        </div>
+    </div>
+                </div>
             </section>
         </main>
 
         <!-- Captcha y JavaScript -->
         <script>
             document.getElementById('plan-servicio').addEventListener('change', function () {
-                const planSeleccionado = this.options[this.selectedIndex]; // Obtener la opción seleccionada
-                const planNombre = planSeleccionado.value; // Obtener el nombre del plan
-                const planPrecio = planSeleccionado.dataset.price;
-
-                // Descripción del plan (puedes personalizarla como desees)
-                let descripcion;
-                switch (planNombre) {
-                    case 'Básico':
-                        descripcion = 'Incluye un servicio de sepultura básico con atención personalizada y un acompañamiento durante el proceso de despedida.';
-                        break;
+            const planSeleccionado = this.options[this.selectedIndex]; // Obtener la opción seleccionada
+                    const planNombre = planSeleccionado.value; // Obtener el nombre del plan
+                    const planPrecio = planSeleccionado.dataset.price;
+                    // Descripción del plan (puedes personalizarla como desees)
+                    let descripcion;
+                    switch (planNombre) {
+            case 'Básico':
+                    descripcion = 'Incluye un servicio de sepultura básico con atención personalizada y un acompañamiento durante el proceso de despedida.';
+                    break;
                     case 'Estándar':
-                        descripcion = 'Ofrece un servicio de sepultura estándar, que incluye atención personalizada, soporte durante el proceso de planificación y un servicio con mayor confort para los familiares.';
-                        break;
+                    descripcion = 'Ofrece un servicio de sepultura estándar, que incluye atención personalizada, soporte durante el proceso de planificación y un servicio con mayor confort para los familiares.';
+                    break;
                     case 'Premium':
-                        descripcion = 'Proporciona un servicio de sepultura premium, que incluye atención personalizada completa, gestión de todos los aspectos logísticos, un acompañamiento emocional y acceso a servicios exclusivos para honrar la memoria del ser querido.';
-                        break;
+                    descripcion = 'Proporciona un servicio de sepultura premium, que incluye atención personalizada completa, gestión de todos los aspectos logísticos, un acompañamiento emocional y acceso a servicios exclusivos para honrar la memoria del ser querido.';
+                    break;
                     default:
-                        descripcion = '';
-                        break;
-                }
-
-                // Actualizar el contenido del párrafo con la descripción y el precio
-                document.getElementById('descripcion-plan').textContent = `${planNombre}: ${descripcion} Precio: $${planPrecio}`;
-                    });
-
-
-
-                    document.getElementById('procesar-compra').addEventListener('click', function () {
-                        Swal.fire({
-                            title: '¿Confirmar Compra?',
-                            text: '¿Está seguro de contratar este servicio?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Sí, confirmar',
-                            cancelButtonText: 'Cancelar'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // Genera el PDF de factura y lo descarga
-                                const {jsPDF} = window.jspdf;
-                                const doc = new jsPDF();
-
-                                // Agregar contenido al PDF
-                                doc.text(`Factura - Funeraria Los Alamos`, 10, 10);
-                                doc.text(`Cliente: ${document.getElementById('nombre').value}`, 10, 20);
-                                doc.text(`Email: ${document.getElementById('email').value}`, 10, 30);
-                                doc.text(`Teléfono: ${document.getElementById('telefono').value}`, 10, 40);
-                                doc.text(`Dirección: ${document.getElementById('direccion').value}`, 10, 50);
-                                doc.text(`Ciudad: ${document.getElementById('ciudad').value}`, 10, 60);
-                                doc.text(`Servicio: ${document.getElementById('plan-servicio').value}`, 10, 70);
-                                doc.text(`Precio: $${document.getElementById('plan-servicio').selectedOptions[0].dataset.price}`, 10, 80);
-                                doc.text(`Total a Pagar: $${document.getElementById('total').value}`, 10, 90);
-
-                                // Guardar el PDF
-                                doc.save('Factura_FunerariaLosAlamos.pdf');
-
-                                // Redirigir a services.html
-                                window.location.href = 'Servicios.jsp';
-
-                                Swal.fire(
-                                        '¡Servicio contratado con éxito!',
-                                        'Su factura se ha descargado.',
-                                        'success'
-                                        );
-                            }
-                        });
-                    });
+                    descripcion = '';
+                    break;
+            }
         </script>
+
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+    // Función que captura el valor del select y redirige a la página correspondiente
+    document.addEventListener("DOMContentLoaded", function () {
+        const tipoDocumentoSelect = document.getElementById("tipo-documento");
+        const procesarCompraButton = document.getElementById("procesar-compra");
+
+        // Acción cuando se hace clic en "Procesar Compra"
+        procesarCompraButton.addEventListener("click", function() {
+            const tipoDocumento = tipoDocumentoSelect.value; // Obtiene el valor seleccionado
+
+            if (tipoDocumento === "boleta") {
+                Swal.fire({
+                    title: '¡Compra procesada!',
+                    text: 'Redirigiendo a Boleta...',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function() {
+                    window.location.href = "Boleta.jsp"; // Redirige a Boleta.jsp
+                });
+            } else if (tipoDocumento === "factura") {
+                Swal.fire({
+                    title: '¡Compra procesada!',
+                    text: 'Redirigiendo a Factura...',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function() {
+                    window.location.href = "Factura.jsp"; // Redirige a Factura.jsp
+                });
+            } else {
+                // Si no se selecciona nada, muestra un mensaje de error
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Seleccione un tipo de documento',
+                    icon: 'error',
+                    confirmButtonText: 'Cerrar'
+                });
+            }
+        });
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js/dist/html2pdf.bundle.min.js"></script>
         <footer id="footer" class="footer dark-background">
 
             <div class="container footer-top">
