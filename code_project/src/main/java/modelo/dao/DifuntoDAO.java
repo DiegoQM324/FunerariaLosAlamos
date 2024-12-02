@@ -36,7 +36,7 @@ public class DifuntoDAO {
 
             int filasAfectadas = ps.executeUpdate();
 
-            // Verifica si la inserción fue exitosa
+           
             return filasAfectadas > 0;
 
         } catch (SQLException e) {
