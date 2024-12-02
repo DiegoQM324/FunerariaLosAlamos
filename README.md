@@ -26,7 +26,7 @@ Este documento describe el flujo de trabajo con Gitflow simplificado que utiliza
 
 ## **Estructura de Ramas**
 
-1. **`master`**
+1. **`main`**
     - **Propósito**: Contiene el código de producción que se utiliza para gestionar los servicios funerarios. Esta rama debe mantenerse siempre estable.
     - **Reglas**:
         - No se realizan cambios directos en `master`.
