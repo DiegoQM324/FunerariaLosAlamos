@@ -179,6 +179,11 @@ private boolean verificarUsuarioExistente(String dni, String correo) {
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     return usuarioDAO.obtenerUsuarioPorDniOCorreo(dni, correo) != null;
 }
+
+
+    private boolean validarDatosInicioSesion(String dni, String contrasena) {
+    return dni != null && !dni.isEmpty() && contrasena != null && !contrasena.isEmpty();
+}
     
     
 
