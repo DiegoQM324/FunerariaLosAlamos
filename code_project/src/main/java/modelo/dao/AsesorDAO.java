@@ -49,7 +49,7 @@ public class AsesorDAO {
 
             // Iterar sobre los resultados de la consulta
             while (rs.next()) {
-                // Crear un objeto Asesor por cada fila obtenida
+                // Crear un objeto Asesor por cada fila obtenida.
                 Asesor asesor = new Asesor(
                         rs.getInt("id_asesor"),
                         rs.getString("nombrease"),
