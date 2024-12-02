@@ -1,7 +1,7 @@
 # **Los Alamos - Funeraria**
 
 ## **Descripción**
-El sistema de gestión de servicios funerarios y de entierro de _Los Alamos_ es una plataforma diseñada para facilitar la organización y administración de los servicios funerarios que ofrecemos. Desarrollado en Java con Spring Boot, este proyecto tiene como objetivo proporcionar un flujo de trabajo eficiente para coordinar los servicios funerarios con la máxima empatía y profesionalismo.
+El sistema de gestión de servicios funerarios y de entierro de _Los Alamos_ es una plataforma diseñada para facilitar la organización y administración de los servicios funerarios que ofrecemos. Desarrollado en Java con Tomcat, este proyecto tiene como objetivo proporcionar un flujo de trabajo eficiente para coordinar los servicios funerarios con la máxima empatía y profesionalismo.
 
 ## **Tecnologías Utilizadas**
 - **Java 21**:  Lenguaje de programación utilizado para el desarrollo principal.
