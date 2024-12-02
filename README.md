@@ -5,7 +5,7 @@ El sistema de gestión de servicios funerarios y de entierro de _Los Alamos_ es 
 
 ## **Tecnologías Utilizadas**
 - **Java 21**:  Lenguaje de programación utilizado para el desarrollo principal.
-- *Tomcat: Servidor de aplicaciones web que ejecuta Java Servlets, JSP y WebSocket, ideal para sistemas web dinámicos y escalables.*Spring Boot**: Framework que permite una rápida creación y mantenimiento del sistema.
+- **Tomcat**: Servidor de aplicaciones web que ejecuta Java Servlets, JSP y WebSocket, ideal para sistemas web dinámicos y escalables.*Spring Boot**: Framework que permite una rápida creación y mantenimiento del sistema.
 
 ## **Requisitos Previos**
 Asegúrate de tener instaladas las siguientes herramientas antes de comenzar:
