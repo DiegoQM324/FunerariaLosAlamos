@@ -42,7 +42,7 @@ public class UsuarioDAO {
 
         try (Connection conn = new ConectaDB().getConexion(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
 
-            // Itera sobre los resultados y construye objetos Usuario.
+           
             while (rs.next()) {
                 Usuario usuario = new Usuario(
                         rs.getInt("id_usuario"),
