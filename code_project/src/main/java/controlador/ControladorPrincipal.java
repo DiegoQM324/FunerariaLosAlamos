@@ -184,6 +184,12 @@ private boolean verificarUsuarioExistente(String dni, String correo) {
     private boolean validarDatosInicioSesion(String dni, String contrasena) {
     return dni != null && !dni.isEmpty() && contrasena != null && !contrasena.isEmpty();
 }
+
+    private boolean validarContraseña(String contrasena) {
+    // Validación básica de la contraseña: mínimo 8 caracteres, al menos un número y una letra
+    String regex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$";
+    return contrasena.matches(regex);
+}
     
     
 
