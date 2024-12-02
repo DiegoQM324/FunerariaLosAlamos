@@ -107,4 +107,30 @@ public class AsesorDAO {
         }
     }
 
+    //Metodo para Obtener Asesores con un Costo en un Rango
+    public List<Asesor> obtenerAsesoresPorRangoDeCosto(double costoMin, double costoMax) {
+    List<Asesor> asesores = new ArrayList<>();
+    String sql = "SELECT * FROM asesor WHERE costo BETWEEN ? AND ?";
+    try (Connection conn = new ConectaDB().getConexion(); 
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setDouble(1, costoMin);
+        ps.setDouble(2, costoMax);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                asesores.add(new Asesor(
+                    rs.getInt("id_asesor"),
+                    rs.getString("nombrease"),
+                    rs.getString("apellidosase"),
+                    rs.getDouble("costo")
+                ));
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return asesores;
+}
+
+
 }
