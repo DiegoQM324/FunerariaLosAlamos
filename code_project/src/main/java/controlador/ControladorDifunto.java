@@ -126,7 +126,7 @@ public class ControladorDifunto extends HttpServlet {
         String fecFallecimientoStr = request.getParameter("fechaFallecimiento");
         String lugarFallecimiento = request.getParameter("lugar");
 
-// Definir el formato de fecha (debe coincidir con el formato que envía el formulario)
+// Definir el formato de fecha, debe coincidir con el formato que envía el formulario.
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd"); // Para fechas en formato "AAAA-MM-DD"
 
 // Convertir las cadenas de fecha a objetos java.util.Date
