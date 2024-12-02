@@ -175,4 +175,11 @@ public class ControladorPrincipal extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+private boolean verificarUsuarioExistente(String dni, String correo) {
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    return usuarioDAO.obtenerUsuarioPorDniOCorreo(dni, correo) != null;
+}
+    
+    
+
 }
