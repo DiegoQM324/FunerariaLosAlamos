@@ -190,6 +190,14 @@ private boolean verificarUsuarioExistente(String dni, String correo) {
     String regex = "^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$";
     return contrasena.matches(regex);
 }
+
+    private Usuario obtenerUsuarioSesion(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);  // No crea una nueva si no existe
+    if (session != null) {
+        return (Usuario) session.getAttribute("usuarioAutenticado");
+    }
+    return null;  // No hay sesión activa
+}
     
     
 
