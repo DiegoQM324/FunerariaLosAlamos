@@ -26,7 +26,7 @@ public class ConectaDB {
         String Driver = "com.mysql.cj.jdbc.Driver";
 
         try {
-            Class.forName(Driver); // Cargar el controlador JDBC
+            Class.forName(Driver); 
             cnx = DriverManager.getConnection(url, user, clave); // Establecer la conexión
 
         } catch (ClassNotFoundException ex) {
@@ -34,7 +34,7 @@ public class ConectaDB {
         } catch (SQLException ex) {
             Logger.getLogger(ConectaDB.class.getName()).log(Level.SEVERE, "Error al conectar con la base de datos", ex);
         }
-        return cnx; // Retornar la conexión establecida
+        return cnx; 
     }
 
     public static void main(String[] args) throws SQLException {
