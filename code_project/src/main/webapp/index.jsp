@@ -88,7 +88,7 @@
 
                 <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="index.html" class="active">INICIO</a></li>
+                        <li><a href="index.jsp" class="active">INICIO</a></li>
                         <li><a href="vista/Nosotros.jsp">NOSOTROS</a></li>
                         <li><a href="vista/Servicios.jsp">SERVICIOS</a></li>
                         <li><a href="vista/Asesores.jsp">ASESORES</a></li>

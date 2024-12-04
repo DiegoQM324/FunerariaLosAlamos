@@ -5,7 +5,7 @@
     <artifactId>LOSALAMOS</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>LOSALAMOSzz-1.0-SNAPSHOT</name>
+    <name>LOSALAMOSKJzz-1.0-SNAPSHOT</name>
     
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -18,12 +18,17 @@
     
     <dependencies>
         <dependency>
+            <!-- Dependencia para Jakarta EE, proporciona las APIs de Jakarta EE que son utilizadas en aplicaciones empresariales.
+            La versión de Jakarta EE está configurada a través de la propiedad ${jakartaee}. 
+            Se marca como 'provided' porque generalmente la implementación del contenedor de Jakarta EE (como Payara o GlassFish)
+            ya proporciona estas clases, no es necesario incluirlas en el WAR/JAR final. -->
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
             <version>${jakartaee}</version>
             <scope>provided</scope>
         </dependency>
-        
+        <!-- Dependencia para el conector de MySQL, que permite a la aplicación Java interactuar con bases de datos MySQL.
+        En este caso, la versión especificada es 8.0.33. -->
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
@@ -31,6 +36,9 @@
             <version>8.0.33</version>
         </dependency>
         
+        
+        <!-- Dependencia de JSTL (JavaServer Pages Standard Tag Library), que proporciona una serie de etiquetas estándar para 
+        simplificar el desarrollo de páginas JSP. La versión utilizada es la 1.2. -->
         <!-- https://mvnrepository.com/artifact/jstl/jstl -->
         <dependency>
             <groupId>jstl</groupId>
@@ -39,29 +47,45 @@
         </dependency>
         
         
-       
+        
+        
+        <!-- Dependencia de Apache POI, que permite leer y escribir documentos de Microsoft Office como Excel, Word, etc. -->
+
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.3</version>
         </dependency>
-
+        <!-- Dependencia de Apache Commons Lang, que proporciona clases adicionales para manipular cadenas, fechas, 
+        colecciones, etc. La versión especificada es la 3.12.0. -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
 
+        <!-- Dependencia de Logback Classic, una implementación moderna de la API de logging de SLF4J. La versión especificada 
+        es la 1.4.11, y se utiliza para gestionar el registro de eventos y errores en la aplicación. -->
+         
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.4.11</version>
         </dependency>
+        
+        
+        <!-- Dependencia de Logback Core, necesaria para que la implementación de Logback funcione correctamente. -->
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.4.11</version>
         </dependency>
+        
+        
+        <!-- Dependencia de Mockito Core, para realizar pruebas unitarias usando la biblioteca de mockeo Mockito, la versión 4.5.1
+        se utiliza para simular comportamientos en los tests. Se marca como 'test' porque solo es necesaria en el entorno de pruebas. -->
         
         <dependency>
             <groupId>org.mockito</groupId>
@@ -69,11 +93,21 @@
             <version>4.5.1</version>
             <scope>test</scope>
         </dependency>
+        
+        
+        
+        <!-- Dependencia para Mockito con JUnit Jupiter, utilizada para integrar Mockito con JUnit 5. -->
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>4.5.1</version>
         </dependency>
+        
+        
+        <!-- Dependencia de JUnit 5 para pruebas unitarias. JUnit 5 es el framework de pruebas más reciente, y la versión 5.11.3 
+        se usa para definir los tests. También se marca como 'test' ya que solo se necesita en las pruebas. -->
+        
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -81,23 +115,40 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
+        
+        <!-- Dependencia de JUnit 4, usada en proyectos donde se utiliza la versión anterior de JUnit, 4.13.2. También es de 'test' scope. -->
+
+        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        
+        
+        <!-- Dependencia de Hamcrest, que es una biblioteca utilizada junto con JUnit para realizar aserciones más legibles y poderosas
+        en las pruebas. La versión utilizada es la 1.3. -->
+        
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
             <version>1.3</version>
             <scope>test</scope>
         </dependency>
+        
+        
+        <!-- Dependencia para trabajar con el API de correo de Java, se utiliza para enviar correos electrónicos desde la aplicación. -->
+
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
             <version>1.6.2</version>
         </dependency>
+        
+        
+        <!-- Dependencia para la implementación de javax.mail en Java. Esta es la implementación de la API de correo JavaMail. -->
+
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
@@ -152,7 +203,7 @@
                 </executions>
             </plugin>
             
-           <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M7</version>

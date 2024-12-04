@@ -40,7 +40,6 @@ public class PasswordRecoveryController extends HttpServlet {
                 EmailUtil.sendEmail(email, "Recuperación de Contraseña - Funeraria Los Alamos",
                         "<div style='font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f8f8f8;'>"
                         + "<div style='text-align: center;'>"
-                        + "<img src='https://drive.google.com/uc?export=view&id=1DJFk7bwz-BWGkk5lXYJiJkN9WyAdh37Z' alt='Funeraria Los Alamos' style='max-width: 150px;'>"
                         + "<h1 style='color: #4A4A4A;'>Recuperación de Contraseña</h1>"
                         + "</div>"
                         + "<p style='color: #555; font-size: 16px;'>Estimado/a usuario/a,</p>"

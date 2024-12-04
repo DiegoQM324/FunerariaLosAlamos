@@ -100,7 +100,7 @@ public class ControladorPrincipal extends HttpServlet {
 
         String dni = request.getParameter("dni");
         String contraseña = request.getParameter("contrasena");
-        
+
         String contraseñaEncriptada = encriptarContraseñaMD5(contraseña);
 
         // Validar credenciales con la base de datos usando UsuarioDAO
@@ -129,14 +129,16 @@ public class ControladorPrincipal extends HttpServlet {
         } else {
             logger.warn("Intento fallido de inicio de sesión para el DNI: {}", dni);
 
+            request.setAttribute("error", "Datos incorrectos");
+
             // Si fallan las credenciales, redirigir a una página de error
-            response.sendRedirect(request.getContextPath() + "/errorInicioSesion.jsp");
+            response.sendRedirect(request.getContextPath() + "/vista/errorInicioSesion.jsp");
         }
     }
 
     private void registrarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
 
         String nombre = request.getParameter("nombre");
@@ -146,7 +148,7 @@ public class ControladorPrincipal extends HttpServlet {
         String dni = request.getParameter("dni");
         String contraseña = request.getParameter("contrasena");
         String rol = request.getParameter("rol");
-        
+
         String contraseñaEncriptada = encriptarContraseñaMD5(contraseña);
 
         // Crear el objeto Usuario con los datos del formulario
@@ -172,9 +174,7 @@ public class ControladorPrincipal extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
-
     public String encriptarContraseñaMD5(String contraseña) {
-
 
         try {
             // Crear instancia de MessageDigest para MD5

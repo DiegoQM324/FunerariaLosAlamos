@@ -67,6 +67,30 @@ public class AsesorDAO {
         return asesores;
     }
 
+   public List<Asesor> obtenerNombresYApellidosDeAsesores() {
+    List<Asesor> asesoress = new ArrayList<>();
+    String sql = "SELECT nombrease, apellidosase FROM asesor";
+
+    try (
+        Connection conn = new ConectaDB().getConexion();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            // Crear un objeto Asesor solo con el nombre y apellido
+            Asesor asesor = new Asesor();
+            asesor.setNombreAse(rs.getString("nombrease"));
+            asesor.setApellidosAse(rs.getString("apellidosase"));
+            asesoress.add(asesor); // Agregar el asesor a la lista
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return asesoress;
+}
+
     public boolean actualizarAsesor(Asesor asesor) {
         String sql = "UPDATE asesor SET nombrease = ?, apellidosase = ?, costo = ? WHERE id_asesor = ?";
 

@@ -20,9 +20,9 @@ public class ConectaDB {
         Connection cnx = null;
 
         // URL de conexión con configuración adecuada para UTF-8
-        String url = "jdbc:mysql://localhost:3306/losalamos?useUnicode=true&characterEncoding=utf8&useTimeZone=true&serverTimezone=UTC&autoReconnect=true";
+        String url = "jdbc:mysql://localhost:3306/losalamos?useUnicode=true&characterEncoding=UTF-8&useTimeZone=true&serverTimezone=UTC&autoReconnect=true";
         String user = "root";
-        String clave = "root324";
+        String clave = "root";
         String Driver = "com.mysql.cj.jdbc.Driver";
 
         try {

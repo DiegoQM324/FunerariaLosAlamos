@@ -20,9 +20,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.dao.AsesorDAO;
 
 import modelo.dao.DifuntoDAO;
 import modelo.dao.UsuarioDAO;
+import modelo.dto.Asesor;
 
 import modelo.dto.Difunto;
 import modelo.dto.Usuario;
